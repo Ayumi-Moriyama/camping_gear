@@ -40,7 +40,7 @@
         収納サイズ（厚み）cm: <input type="number" step="0.1" name="thickness">
       </div>
       <div>
-        重さ（ｇ）: <input type="number" name="price">
+        重さ（ｇ）: <input type="number" name="weight">
       </div>
 
       <div>

@@ -21,4 +21,5 @@
 
 ## 参考にした web サイトなど
 
-  - 後で見返せるように
+  - SQLのデータ型 https://ysklog.net/mysql/1797.html#google_vignette
+  - 小数点の表記型 https://www.javadrive.jp/mysql/type/index9.html

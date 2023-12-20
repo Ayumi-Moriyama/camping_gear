@@ -34,8 +34,9 @@ $output = "";
 foreach ($result as $record) {
   $output .= "
     <tr>
-      <td>{$record["deadline"]}</td>
-      <td>{$record["todo"]}</td>
+      <td>{$record["item"]}</td>
+      <td>{$record["genre"]}</td>
+      <td>{$record["weight"]}</td>
     </tr>
   ";
 }
@@ -49,18 +50,19 @@ foreach ($result as $record) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DB連携型todoリスト（一覧画面）</title>
+  <title>キャンプギアリスト（一覧画面）</title>
 </head>
 
 <body>
   <fieldset>
-    <legend>DB連携型todoリスト（一覧画面）</legend>
+    <legend>キャンプギアリスト（一覧画面）</legend>
     <a href="gear_input.php">入力画面</a>
     <table>
       <thead>
         <tr>
-          <th>deadline</th>
-          <th>todo</th>
+          <th>アイテム名</th>
+          <th>ジャンル</th>
+          <th>重さ（ｇ）</th>
         </tr>
       </thead>
       <tbody>
