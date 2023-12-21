@@ -28,17 +28,28 @@ try {
   exit();
 }
 
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$output = "";
-foreach ($result as $record) {
-  $output .= "
-    <tr>
-      <td>{$record["item"]}</td>
-      <td>{$record["genre"]}</td>
-      <td>{$record["weight"]}</td>
-    </tr>
-  ";
+// $output = "";
+// foreach ($result as $record) {
+//   $output .= "
+//     <tr>
+//       <td>{$record["item"]}</td>
+//       <td>{$record["genre"]}</td>
+//       <td>{$record["weight"]}</td>
+//     </tr>
+//   ";
+// }
+
+
+// DB接続，SQL実行など(JS使う場合)
+
+if ($status == false) {
+  $error = $stmt->errorInfo();
+  exit('sqlError:'.$error[2]);
+} else {
+  // PHPではデータを取得するところまで実施
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
@@ -51,13 +62,17 @@ foreach ($result as $record) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>キャンプギアリスト（一覧画面）</title>
+  <!-- bulma -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <!-- jQuery 公式より -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <fieldset>
     <legend>キャンプギアリスト（一覧画面）</legend>
-    <a href="gear_input.php">入力画面</a>
-    <table>
+    <a href="gear_input.php">入力画面へ</a>
+    <table class="table is-bordered is-striped is-hoverable">
       <thead>
         <tr>
           <th>アイテム名</th>
@@ -66,11 +81,44 @@ foreach ($result as $record) {
         </tr>
       </thead>
       <tbody>
-        <!-- ここに<tr><td>deadline</td><td>todo</td><tr>の形でデータが入る -->
-        <?= $output ?>  
+        <tr>
+          <td id="itemAll">アイテムを表示</td>
+          <td id="genreAll">ジャンルを表示</td>
+          <td id="weightAll">重さを表示</td>
+        </tr>
+
       </tbody>
     </table>
   </fieldset>
+
+<script>
+      // PHPのデータをJSに渡す
+      const resultArray = <?=json_encode($result) ?>;
+      console.log(resultArray);
+      
+      // 空の配列を用意
+      const itemAllHtml = [];
+      const genreAllHtml = [];
+      const weightAllHtml = [];
+
+      // 配列からタグ生成し，画面表示する
+      for(let i= 0; i< resultArray.length; i++){
+        // console.log(resultArray[i].item);
+        itemAllHtml.push("<tr><td>" + resultArray[i].item + "</tr></td>");
+        genreAllHtml.push("<tr><td>" + resultArray[i].genre + "</tr></td>"); 
+        weightAllHtml.push("<tr><td>" + resultArray[i].weight + "</tr></td>");
+      }
+      $("#itemAll").html(itemAllHtml);
+      $("#genreAll").html(genreAllHtml);
+      $("#weightAll").html(weightAllHtml);
+
+
+
+
+
+</script>
+
+
 </body>
 
 </html>

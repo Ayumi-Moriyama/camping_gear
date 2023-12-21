@@ -14,12 +14,14 @@
 
   - キャンプギアのサイズ表記を調べたら単位や書き方がバラバラだったので、単位を統一しました。
   - 小数点以下も表示できるように、データ型を調べました。
+  - jQuery UIのAutocompleteを入れてみました。
 
 ## 苦戦した点
 
-  - 明日の自分への伝言
+  - 一覧を選択して重量の合計を計算までしたかったのですが、力尽きました。
 
 ## 参考にした web サイトなど
 
   - SQLのデータ型 https://ysklog.net/mysql/1797.html#google_vignette
   - 小数点の表記型 https://www.javadrive.jp/mysql/type/index9.html
+  - jQuery UIのAutocomplete https://web-begginer-log.com/jquery_ui_autocomplete/
