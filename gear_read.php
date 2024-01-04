@@ -78,21 +78,21 @@ foreach ($result as $record) {
     <legend>キャンプギアリスト（一覧画面）</legend>
     <a href="gear_input.php">入力画面へ</a>
   <div class="columns">
-    <!-- <div class="column">
+    <div class="column is-2">
     <table class="table is-bordered is-striped is-hoverable">
       <thead>
         <tr>
           <th>チェック</th>
         </tr>
       </thead>
-      <tbody id="gearList">
-      </tbody>
+        <tbody id="checkList"></tbody>
     </table>
-    </div> -->
+    </div>
     <div class="column">
     <table class="table is-bordered is-striped is-hoverable">
       <thead>
         <tr>
+          <!-- <th>チェック</th> -->
           <th>アイテム</th>
           <th>ジャンル</th>
           <th>メーカー</th>
@@ -115,38 +115,23 @@ foreach ($result as $record) {
       const resultArray = <?=json_encode($result) ?>;
       console.log(resultArray);
       
-       // テーブルの内容を生成し表示する
-    // const gearList = document.getElementById('gearList');
+    // テーブルの内容を生成し表示する
+    const gearList = document.getElementById('checkList');
 
-    // resultArray.forEach(item => {
-    //     const row = document.createElement('tr');
+    resultArray.forEach(item => {
+        const row = document.createElement('tr');
 
-    //     // チェックボックス列
-    //     const checkboxCell = document.createElement('td');
-    //     const checkbox = document.createElement('input');
-    //     checkbox.type = 'checkbox';
-    //     checkbox.name = 'check';
-    //     checkboxCell.appendChild(checkbox);
-    //     row.appendChild(checkboxCell);
-
-        // アイテム名列
-        // const itemCell = document.createElement('td');
-        // itemCell.textContent = item.item;
-        // row.appendChild(itemCell);
-
-        // ジャンル列
-        // const genreCell = document.createElement('td');
-        // genreCell.textContent = item.genre;
-        // row.appendChild(genreCell);
-
-        // 重さ列
-        // const weightCell = document.createElement('td');
-        // weightCell.textContent = item.weight;
-        // row.appendChild(weightCell);
+        // チェックボックス列
+        const checkboxCell = document.createElement('td');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'check';
+        checkboxCell.appendChild(checkbox);
+        row.appendChild(checkboxCell);
 
         // 行をテーブルに追加
-    //     gearList.appendChild(row);
-    // });
+        gearList.appendChild(row);
+    });
 
 </script>
 

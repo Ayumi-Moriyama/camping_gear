@@ -12,16 +12,16 @@
 
 ## 工夫した点
 
-  - JavaScriptでテーブルを作りましたがPHPで表示に変更しました。
+  - 左側はJavaScriptで、右側はPHPでテーブルを作り横並びにしました。
   - テーブルの表示項目を増やしました。
-  - チェックボックスを追加し、チェックしたアイテムの重量を合計したいです。（実装中）
+  - チェックボックスを使って、チェックしたアイテムの重量を合計したいです。（実装中）
 
 ## 苦戦した点
 
-  - JavaScriptでテーブル表示しようとしましたが更新削除処理が上手く表示できずPHPにしました。
+  - JavaScriptかPHP、どちらかのテーブルに統一したいのですができませんでした。
+    →JavaScriptだと更新・削除をテーブルに入れ込めない
+    →PHPだとチェックボックスを入れ込めない
 
 ## 参考にした web サイトなど
 
-  - SQLのデータ型 https://ysklog.net/mysql/1797.html#google_vignette
-  - 小数点の表記型 https://www.javadrive.jp/mysql/type/index9.html
-  - jQuery UIのAutocomplete https://web-begginer-log.com/jquery_ui_autocomplete/
+  - bulmaのドキュメント（カラムのサイズ）https://bulma.io/documentation/columns/sizes/
