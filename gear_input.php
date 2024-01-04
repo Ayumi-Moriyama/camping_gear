@@ -5,10 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>キャンプギアリスト（入力画面）</title>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<!-- jQuery 読み込み -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- jQuery UI -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
 </head>
 
@@ -24,7 +26,7 @@
         カテゴリー: <input type="text" id="category" name="category">
       </div>
       <div>
-        ジャンル: <input type="text" id="genre" name="">
+        ジャンル: <input type="text" id="genre" name="genre">
       </div>
       <div>
         メーカー: <input type="text" id="maker" name="maker">
@@ -55,6 +57,7 @@
   </form>
 
   <script>
+    // jQuery UIのAutocompleteで使う予測キーワード
 $(function() {
 let categoryWords = [
       "タープ・シェード",
@@ -116,8 +119,6 @@ let makerWords = [
       source: makerWords,
     });
 });
-
-
 
   </script>
 </body>

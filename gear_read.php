@@ -28,19 +28,6 @@ try {
   exit();
 }
 
-// $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// $output = "";
-// foreach ($result as $record) {
-//   $output .= "
-//     <tr>
-//       <td>{$record["item"]}</td>
-//       <td>{$record["genre"]}</td>
-//       <td>{$record["weight"]}</td>
-//     </tr>
-//   ";
-// }
-
 
 // DB接続，SQL実行など(JS使う場合)
 
@@ -48,8 +35,26 @@ if ($status == false) {
   $error = $stmt->errorInfo();
   exit('sqlError:'.$error[2]);
 } else {
-  // PHPではデータを取得するところまで実施
+
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  $output = "";
+foreach ($result as $record) {
+  $output .= "
+    <tr>
+      <td>{$record["item"]}</td>
+      <td>{$record["genre"]}</td>
+      <td>{$record["maker"]}</td>
+      <td>{$record["weight"]}</td>
+      <td>
+        <a href='gear_edit.php?id={$record["id"]}'>edit</a>
+      </td>
+      <td>
+        <a href='gear_delete.php?id={$record["id"]}'>delete</a>
+      </td>
+    </tr>
+  ";
+}
 }
 
 
@@ -64,31 +69,45 @@ if ($status == false) {
   <title>キャンプギアリスト（一覧画面）</title>
   <!-- bulma -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <!-- jQuery 公式より -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
   <fieldset>
     <legend>キャンプギアリスト（一覧画面）</legend>
     <a href="gear_input.php">入力画面へ</a>
+  <div class="columns">
+    <!-- <div class="column">
     <table class="table is-bordered is-striped is-hoverable">
       <thead>
         <tr>
-          <th>アイテム名</th>
+          <th>チェック</th>
+        </tr>
+      </thead>
+      <tbody id="gearList">
+      </tbody>
+    </table>
+    </div> -->
+    <div class="column">
+    <table class="table is-bordered is-striped is-hoverable">
+      <thead>
+        <tr>
+          <th>アイテム</th>
           <th>ジャンル</th>
+          <th>メーカー</th>
           <th>重さ（ｇ）</th>
+          <th>更新</th>
+          <th>削除</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td id="itemAll">アイテムを表示</td>
-          <td id="genreAll">ジャンルを表示</td>
-          <td id="weightAll">重さを表示</td>
-        </tr>
-
+        <?= $output ?>
       </tbody>
     </table>
+    </div>
+  </div>
+
   </fieldset>
 
 <script>
@@ -96,28 +115,40 @@ if ($status == false) {
       const resultArray = <?=json_encode($result) ?>;
       console.log(resultArray);
       
-      // 空の配列を用意
-      const itemAllHtml = [];
-      const genreAllHtml = [];
-      const weightAllHtml = [];
+       // テーブルの内容を生成し表示する
+    // const gearList = document.getElementById('gearList');
 
-      // 配列からタグ生成し，画面表示する
-      for(let i= 0; i< resultArray.length; i++){
-        // console.log(resultArray[i].item);
-        itemAllHtml.push("<tr><td>" + resultArray[i].item + "</tr></td>");
-        genreAllHtml.push("<tr><td>" + resultArray[i].genre + "</tr></td>"); 
-        weightAllHtml.push("<tr><td>" + resultArray[i].weight + "</tr></td>");
-      }
-      $("#itemAll").html(itemAllHtml);
-      $("#genreAll").html(genreAllHtml);
-      $("#weightAll").html(weightAllHtml);
+    // resultArray.forEach(item => {
+    //     const row = document.createElement('tr');
 
+    //     // チェックボックス列
+    //     const checkboxCell = document.createElement('td');
+    //     const checkbox = document.createElement('input');
+    //     checkbox.type = 'checkbox';
+    //     checkbox.name = 'check';
+    //     checkboxCell.appendChild(checkbox);
+    //     row.appendChild(checkboxCell);
 
+        // アイテム名列
+        // const itemCell = document.createElement('td');
+        // itemCell.textContent = item.item;
+        // row.appendChild(itemCell);
 
+        // ジャンル列
+        // const genreCell = document.createElement('td');
+        // genreCell.textContent = item.genre;
+        // row.appendChild(genreCell);
 
+        // 重さ列
+        // const weightCell = document.createElement('td');
+        // weightCell.textContent = item.weight;
+        // row.appendChild(weightCell);
+
+        // 行をテーブルに追加
+    //     gearList.appendChild(row);
+    // });
 
 </script>
-
 
 </body>
 
