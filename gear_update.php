@@ -1,5 +1,22 @@
 <?php
-// POSTデータ確認
+include("functions.php");
+
+// 入力項目のチェック
+if (
+!isset($_POST['item']) || $_POST['item'] === '' ||
+!isset($_POST['category']) || $_POST['category'] === '' ||
+!isset($_POST['genre']) || $_POST['genre'] === '' ||
+!isset($_POST['maker']) || $_POST['maker'] === '' ||
+!isset($_POST['purchase_date']) || $_POST['purchase_date'] === '' ||
+!isset($_POST['price']) || $_POST['price'] === '' ||
+!isset($_POST['long_side']) || $_POST['long_side'] === '' ||
+!isset($_POST['short_side']) || $_POST['short_side'] === '' ||
+!isset($_POST['thickness']) || $_POST['thickness'] === '' ||
+!isset($_POST['weight']) || $_POST['weight'] === '' ||
+!isset($_POST['id']) || $_POST['id'] === ''
+) {
+  exit('paramError');
+}
 
 $item = $_POST['item'];
 $category = $_POST['category'];
@@ -11,40 +28,18 @@ $long_side = $_POST['long_side'];
 $short_side = $_POST['short_side'];
 $thickness = $_POST['thickness'];
 $weight = $_POST['weight'];
+$id = $_POST['id'];
 
-
-if (
-!isset($_POST['item']) || $_POST['item'] === '' ||
-!isset($_POST['category']) || $_POST['category'] === '' ||
-!isset($_POST['genre']) || $_POST['genre'] === '' ||
-!isset($_POST['maker']) || $_POST['maker'] === '' ||
-!isset($_POST['purchase_date']) || $_POST['purchase_date'] === '' ||
-!isset($_POST['price']) || $_POST['price'] === '' ||
-!isset($_POST['long_side']) || $_POST['long_side'] === '' ||
-!isset($_POST['short_side']) || $_POST['short_side'] === '' ||
-!isset($_POST['thickness']) || $_POST['thickness'] === '' ||
-  !isset($_POST['weight']) || $_POST['weight'] === ''
-) {
-  exit('ParamError');
-}
-
-// 各種項目設定
-$dbn ='mysql:dbname=camping_gear;charset=utf8mb4;port=3306;host=localhost';
-$user = 'root';
-$pwd = '';
+// var_dump($_POST);
+// exit();
 
 // DB接続
-try {
-  $pdo = new PDO($dbn, $user, $pwd);
-} catch (PDOException $e) {
-  echo json_encode(["db error" => "{$e->getMessage()}"]);
-  exit();
-}
+$pdo = connect_to_db();
 
 // SQL作成&実行
-$sql = 'INSERT INTO my_table (
-  id, item, category, genre, maker, purchase_date, price, long_side, short_side, thickness, weight, created_at, updated_at
-  ) VALUES (NULL, :item, :category, :genre, :maker, :purchase_date, :price, :long_side, :short_side, :thickness, :weight, now(), now())';
+$sql = 'UPDATE my_table SET item=:item, category=:category, genre=:genre, maker=:maker,
+purchase_date=:purchase_date, price=:price, long_side=:long_side, short_side=:short_side, thickness=:thickness, weight=:weight, 
+updated_at=now() WHERE id=:id';
 
 $stmt = $pdo->prepare($sql);
 
@@ -59,8 +54,9 @@ $stmt->bindValue(':long_side', $long_side, PDO::PARAM_STR);
 $stmt->bindValue(':short_side', $short_side, PDO::PARAM_STR);
 $stmt->bindValue(':thickness', $thickness, PDO::PARAM_STR);
 $stmt->bindValue(':weight', $weight, PDO::PARAM_STR);
+$stmt->bindValue(':id', $id, PDO::PARAM_STR);
 
-// SQL実行（実行に失敗すると `sql error ...` が出力される）
+
 try {
   $status = $stmt->execute();
 } catch (PDOException $e) {
@@ -68,6 +64,5 @@ try {
   exit();
 }
 
-// SQL実行の処理
-header('Location:gear_input.php');
+header('Location:gear_read.php');
 exit();
